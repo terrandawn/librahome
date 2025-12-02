@@ -6,7 +6,7 @@ export default {
       "eas": {
         "projectId": "7bfa6018-e8d2-4160-a8cb-fc036d196ee6"
       }
-    }
+    },
     version: "1.0.0",
     orientation: "portrait",
     icon: "./assets/images/icon.png",

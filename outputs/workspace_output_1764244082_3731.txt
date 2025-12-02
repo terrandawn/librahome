@@ -1,0 +1,20 @@
+import sql from "@/app/api/utils/sql";
+import { serverLogger, logApiRequest, logApiResponse, logDbOperation } from "../utils/logger";
+
+// GET /api/books - List all books for a user
+export async function GET(request) {
+  const startTime = Date.now();
+  
+  try {
+    console.log('🔍 GET /api/books called');
+    logApiRequest(request, startTime);
+    
+    const userId = request.headers.get("x-user-id");
+    console.log('👤 User ID:', userId);
+
+    if (!userId) {
+      console.log('❌ No user ID provided');
+      logApiResponse(request, 401, startTime, new Error("Unauthorized"));
+      return Response.json({ error: "Unauthorized" }, { status: 401 });
+    }
+

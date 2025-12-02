@@ -1,0 +1,108 @@
+
+> dev
+> react-router dev
+
+Port 4000 is in use, trying another one...
+Port 4001 is in use, trying another one...
+Port 4002 is in use, trying another one...
+Port 4003 is in use, trying another one...
+  ➜  Local:   http://localhost:4004/
+  ➜  Network: http://172.20.0.9:4004/
+⚠️  Failed to connect to database: Database connection string format for `neon()` should be: postgresql://user:password@host.tld/dbname?option=value
+⚠️  No DATABASE_URL provided. Using mock database for development.
+📝 Books will be stored in memory only and will be lost on server restart.
+🔧 To set up a real database, copy .env.example to .env and configure DATABASE_URL
+serveStatic: root path 'build/client' is not found, are you sure it's correct?
+serveStatic: root path './public' is not found, are you sure it's correct?
+🚧 Dev server started
+[traceId:618ddfd3-5589-4a40-bc4e-75168015272c] [36m[2025-11-27T11:47:58.533Z] INFO[0m - API POST /api/books
+[traceId:618ddfd3-5589-4a40-bc4e-75168015272c] Context: {
+  category: 'api_request',
+  method: 'POST',
+  path: '/api/books',
+  query: {},
+  userAgent: 'curl/7.88.1',
+  userId: 'test-user-123',
+  ip: 'unknown',
+  duration: 0
+}
+[traceId:618ddfd3-5589-4a40-bc4e-75168015272c] 🔍 Mock DB Query: insert into books (
+        user_id, title, author, isbn, publisher, publication_year,
+        genre...
+[traceId:618ddfd3-5589-4a40-bc4e-75168015272c] ➕ Inserting book with 16 parameters
+[traceId:618ddfd3-5589-4a40-bc4e-75168015272c] ✅ Book added: Test Book (ID: book_1)
+[traceId:618ddfd3-5589-4a40-bc4e-75168015272c] 📚 Total books in database: 1
+[traceId:618ddfd3-5589-4a40-bc4e-75168015272c] [90m[2025-11-27T11:47:58.538Z] DEBUG[0m - DB INSERT on books completed
+[traceId:618ddfd3-5589-4a40-bc4e-75168015272c] Data: { operation: 'INSERT', table: 'books', duration: 1 }
+[traceId:618ddfd3-5589-4a40-bc4e-75168015272c] Context: {
+  category: 'database',
+  operation: 'INSERT',
+  table: 'books',
+  duration: 1
+}
+[traceId:618ddfd3-5589-4a40-bc4e-75168015272c] [36m[2025-11-27T11:47:58.538Z] INFO[0m - Book created successfully
+[traceId:618ddfd3-5589-4a40-bc4e-75168015272c] Data: {
+  bookId: 'book_1',
+  title: 'Test Book',
+  userId: 'test-user-123',
+  status: 'unread',
+  tagsCount: 0
+}
+[traceId:618ddfd3-5589-4a40-bc4e-75168015272c] Context: { category: 'books_api' }
+[traceId:618ddfd3-5589-4a40-bc4e-75168015272c] [36m[2025-11-27T11:47:58.601Z] INFO[0m - API POST /api/books completed (201)
+[traceId:618ddfd3-5589-4a40-bc4e-75168015272c] Data: { method: 'POST', path: '/api/books', status: 201, duration: 68 }
+[traceId:618ddfd3-5589-4a40-bc4e-75168015272c] Context: {
+  category: 'api_response',
+  method: 'POST',
+  path: '/api/books',
+  status: 201,
+  duration: 68,
+  userId: 'test-user-123'
+}
+[traceId:8eb95e91-c2b0-47a7-9f49-c2c5ecd1c22b] 🔍 GET /api/books called
+[traceId:8eb95e91-c2b0-47a7-9f49-c2c5ecd1c22b] [36m[2025-11-27T11:47:58.703Z] INFO[0m - API GET /api/books
+[traceId:8eb95e91-c2b0-47a7-9f49-c2c5ecd1c22b] Context: {
+  category: 'api_request',
+  method: 'GET',
+  path: '/api/books',
+  query: {},
+  userAgent: 'curl/7.88.1',
+  userId: 'test-user-123',
+  ip: 'unknown',
+  duration: 0
+}
+[traceId:8eb95e91-c2b0-47a7-9f49-c2c5ecd1c22b] 👤 User ID: test-user-123
+[traceId:8eb95e91-c2b0-47a7-9f49-c2c5ecd1c22b] 🔍 Mock DB Query: select * from books where user_id = $1 order by date_added desc...
+[traceId:8eb95e91-c2b0-47a7-9f49-c2c5ecd1c22b] 📚 Selecting books with 1 parameters
+[traceId:8eb95e91-c2b0-47a7-9f49-c2c5ecd1c22b] 👤 Filtered by user_id: test-user-123, found 0 books
+[traceId:8eb95e91-c2b0-47a7-9f49-c2c5ecd1c22b] ✅ Returning 0 books
+[traceId:8eb95e91-c2b0-47a7-9f49-c2c5ecd1c22b] [90m[2025-11-27T11:47:58.704Z] DEBUG[0m - DB SELECT on books completed
+[traceId:8eb95e91-c2b0-47a7-9f49-c2c5ecd1c22b] Data: { operation: 'SELECT', table: 'books', duration: 0 }
+[traceId:8eb95e91-c2b0-47a7-9f49-c2c5ecd1c22b] Context: {
+  category: 'database',
+  operation: 'SELECT',
+  table: 'books',
+  duration: 0
+}
+[traceId:8eb95e91-c2b0-47a7-9f49-c2c5ecd1c22b] [36m[2025-11-27T11:47:58.704Z] INFO[0m - Books retrieved successfully
+[traceId:8eb95e91-c2b0-47a7-9f49-c2c5ecd1c22b] Data: {
+  count: 0,
+  userId: 'test-user-123',
+  filters: {
+    status: null,
+    search: null,
+    sortBy: 'date_added',
+    sortOrder: 'DESC'
+  }
+}
+[traceId:8eb95e91-c2b0-47a7-9f49-c2c5ecd1c22b] Context: { category: 'books_api' }
+[traceId:8eb95e91-c2b0-47a7-9f49-c2c5ecd1c22b] [36m[2025-11-27T11:47:58.704Z] INFO[0m - API GET /api/books completed (200)
+[traceId:8eb95e91-c2b0-47a7-9f49-c2c5ecd1c22b] Data: { method: 'GET', path: '/api/books', status: 200, duration: 1 }
+[traceId:8eb95e91-c2b0-47a7-9f49-c2c5ecd1c22b] Context: {
+  category: 'api_response',
+  method: 'GET',
+  path: '/api/books',
+  status: 200,
+  duration: 1,
+  userId: 'test-user-123'
+}

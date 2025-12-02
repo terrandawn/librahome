@@ -1,0 +1,10 @@
+[traceId:618ddfd3-5589-4a40-bc4e-75168015272c] 🔍 Mock DB Query: insert into books (
+[traceId:8eb95e91-c2b0-47a7-9f49-c2c5ecd1c22b] 🔍 GET /api/books called
+[traceId:8eb95e91-c2b0-47a7-9f49-c2c5ecd1c22b] [36m[2025-11-27T11:47:58.703Z] INFO[0m - API GET /api/books
+  method: 'GET',
+[traceId:8eb95e91-c2b0-47a7-9f49-c2c5ecd1c22b] 👤 User ID: test-user-123
+[traceId:8eb95e91-c2b0-47a7-9f49-c2c5ecd1c22b] 🔍 Mock DB Query: select * from books where user_id = $1 order by date_added desc...
+[traceId:8eb95e91-c2b0-47a7-9f49-c2c5ecd1c22b] 👤 Filtered by user_id: test-user-123, found 0 books
+[traceId:8eb95e91-c2b0-47a7-9f49-c2c5ecd1c22b] [36m[2025-11-27T11:47:58.704Z] INFO[0m - API GET /api/books completed (200)
+[traceId:8eb95e91-c2b0-47a7-9f49-c2c5ecd1c22b] Data: { method: 'GET', path: '/api/books', status: 200, duration: 1 }
+  method: 'GET',

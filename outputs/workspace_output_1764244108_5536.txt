@@ -1,0 +1,5 @@
+  path: '/api/books',
+  status: 200,
+  duration: 1,
+  userId: 'test-user-123'
+}

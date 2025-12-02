@@ -1,0 +1,51 @@
+Note: Unnecessary use of -X or --request, POST is already inferred.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying 127.0.0.1:4001...
+* Connected to localhost (127.0.0.1) port 4001 (#0)
+> POST /api/books HTTP/1.1
+> Host: localhost:4001
+> User-Agent: curl/7.88.1
+> Accept: */*
+> Content-Type: application/json
+> x-user-id: test-user-123
+> Content-Length: 47
+> 
+} [47 bytes data]
+< HTTP/1.1 500 Internal Server Error
+< Date: Thu, 27 Nov 2025 11:46:42 GMT
+< Connection: keep-alive
+< Keep-Alive: timeout=5
+< Content-Length: 1278
+< 
+{ [1278 bytes data]
+100  1325  100  1278  100    47   2224     81 --:--:-- --:--:-- --:--:--  2308
+* Connection #0 to host localhost left intact
+
+        <!DOCTYPE html>
+        <html lang="en">
+          <head>
+            <meta charset="UTF-8" />
+            <title>Error</title>
+            <script type="module">
+              const error = {"message":"Failed to load url ./utils/logger (resolved id: ./utils/logger) in /workspace/create-anything/apps/web/src/app/root.tsx. Does the file exist?","stack":"    at loadAndTransform (file:///workspace/create-anything/apps/web/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:35729:17)","frame":""}
+              try {
+                const { ErrorOverlay } = await import("/@vite/client")
+                document.body.appendChild(new ErrorOverlay(error))
+              } catch {
+                const h = (tag, text) => {
+                  const el = document.createElement(tag)
+                  el.textContent = text
+                  return el
+                }
+                document.body.appendChild(h('h1', 'Internal Server Error'))
+                document.body.appendChild(h('h2', error.message))
+                document.body.appendChild(h('pre', error.stack))
+                document.body.appendChild(h('p', '(Error overlay failed to load)'))
+              }
+            </script>
+          </head>
+          <body>
+          </body>
+        </html>
+      

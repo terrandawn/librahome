@@ -1,0 +1,30 @@
+[traceId:8845f995-f57b-4523-bc39-77dfe9c13071] [90m[2025-11-27T11:47:35.004Z] DEBUG[0m - DB SELECT on books completed
+[traceId:8845f995-f57b-4523-bc39-77dfe9c13071] Data: { operation: 'SELECT', table: 'books', duration: 1 }
+[traceId:8845f995-f57b-4523-bc39-77dfe9c13071] Context: {
+  category: 'database',
+  operation: 'SELECT',
+  table: 'books',
+  duration: 1
+}
+[traceId:8845f995-f57b-4523-bc39-77dfe9c13071] [36m[2025-11-27T11:47:35.004Z] INFO[0m - Books retrieved successfully
+[traceId:8845f995-f57b-4523-bc39-77dfe9c13071] Data: {
+  count: 0,
+  userId: 'test-user-123',
+  filters: {
+    status: null,
+    search: null,
+    sortBy: 'date_added',
+    sortOrder: 'DESC'
+  }
+}
+[traceId:8845f995-f57b-4523-bc39-77dfe9c13071] Context: { category: 'books_api' }
+[traceId:8845f995-f57b-4523-bc39-77dfe9c13071] [36m[2025-11-27T11:47:35.005Z] INFO[0m - API GET /api/books completed (200)
+[traceId:8845f995-f57b-4523-bc39-77dfe9c13071] Data: { method: 'GET', path: '/api/books', status: 200, duration: 3 }
+[traceId:8845f995-f57b-4523-bc39-77dfe9c13071] Context: {
+  category: 'api_response',
+  method: 'GET',
+  path: '/api/books',
+  status: 200,
+  duration: 3,
+  userId: 'test-user-123'
+}

@@ -1,0 +1,20 @@
+  count: 0,
+  userId: 'test-user-123',
+  filters: {
+    status: null,
+    search: null,
+    sortBy: 'date_added',
+    sortOrder: 'DESC'
+  }
+}
+[traceId:8eb95e91-c2b0-47a7-9f49-c2c5ecd1c22b] Context: { category: 'books_api' }
+[traceId:8eb95e91-c2b0-47a7-9f49-c2c5ecd1c22b] [36m[2025-11-27T11:47:58.704Z] INFO[0m - API GET /api/books completed (200)
+[traceId:8eb95e91-c2b0-47a7-9f49-c2c5ecd1c22b] Data: { method: 'GET', path: '/api/books', status: 200, duration: 1 }
+[traceId:8eb95e91-c2b0-47a7-9f49-c2c5ecd1c22b] Context: {
+  category: 'api_response',
+  method: 'GET',
+  path: '/api/books',
+  status: 200,
+  duration: 1,
+  userId: 'test-user-123'
+}

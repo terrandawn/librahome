@@ -3,7 +3,7 @@ export default {
     name: "Book Library",
     slug: "book-library",
     "extra": 
-      "eas":"eas": {
+      "eas": {
         "projectId": "7bfa6018-e8d2-4160-a8cb-fc036d196ee6"
       }
     }

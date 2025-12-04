@@ -2,9 +2,12 @@ export default {
   expo: {
     "name": "Book Library",
     "slug": "book-library",
-    "extra": 
+    "extra": {
       "eas": {
         "projectId": "7bfa6018-e8d2-4160-a8cb-fc036d196ee6"
+      },
+      router: {
+        origin: false
       }
     },
     version: "1.0.0",
@@ -68,11 +71,6 @@ export default {
       ],
       "expo-video"
     ],
-    extra: {
-      router: {
-        origin: false
-      }
-    },
     updates: {
       fallbackToCacheTimeout: 0
     },

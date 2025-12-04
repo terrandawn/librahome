@@ -24,7 +24,10 @@ export default {
     ],
     ios: {
       supportsTablet: true,
-      bundleIdentifier: "com.booklibrary.app"
+      bundleIdentifier: "com.booklibrary.app",
+      infoPlist: {
+        ITSAppUsesNonExemptEncryption: false
+      }
     },
     android: {
       adaptiveIcon: {

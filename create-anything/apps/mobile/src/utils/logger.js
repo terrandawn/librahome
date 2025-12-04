@@ -105,8 +105,54 @@ const storeLogLocally = async (logEntry) => {
     }
     
     await AsyncStorage.setItem(LOG_STORAGE_KEY, JSON.stringify(logs));
+    
+    // Also write to daily log file for comprehensive logging
+    await writeToDailyLog(logEntry);
   } catch (error) {
     console.warn('Failed to store log locally:', error);
+  }
+};
+
+// Write to daily log file for comprehensive tracking
+const writeToDailyLog = async (logEntry) => {
+  try {
+    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+    const dailyLogKey = `@app_logs_daily_${today}`;
+    
+    const existingDailyLogs = await AsyncStorage.getItem(dailyLogKey);
+    const dailyLogs = existingDailyLogs ? JSON.parse(existingDailyLogs) : [];
+    
+    dailyLogs.push(logEntry);
+    
+    // Keep last 7 days of logs
+    await AsyncStorage.setItem(dailyLogKey, JSON.stringify(dailyLogs));
+    
+    // Clean up old daily logs (older than 7 days)
+    await cleanupOldDailyLogs();
+  } catch (error) {
+    console.warn('Failed to write to daily log:', error);
+  }
+};
+
+// Clean up old daily logs
+const cleanupOldDailyLogs = async () => {
+  try {
+    const keys = await AsyncStorage.getAllKeys();
+    const dailyLogKeys = keys.filter(key => key.startsWith('@app_logs_daily_'));
+    
+    const today = new Date();
+    const sevenDaysAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+    
+    for (const key of dailyLogKeys) {
+      const dateStr = key.replace('@app_logs_daily_', '');
+      const logDate = new Date(dateStr);
+      
+      if (logDate < sevenDaysAgo) {
+        await AsyncStorage.removeItem(key);
+      }
+    }
+  } catch (error) {
+    console.warn('Failed to cleanup old daily logs:', error);
   }
 };
 
@@ -122,10 +168,134 @@ export const getStoredLogs = async (limit = 100) => {
   }
 };
 
+// Get daily logs for a specific date range
+export const getDailyLogs = async (startDate = null, endDate = null) => {
+  try {
+    const keys = await AsyncStorage.getAllKeys();
+    const dailyLogKeys = keys.filter(key => key.startsWith('@app_logs_daily_'));
+    
+    const allLogs = [];
+    
+    for (const key of dailyLogKeys) {
+      const dateStr = key.replace('@app_logs_daily_', '');
+      const logDate = new Date(dateStr);
+      
+      // Filter by date range if provided
+      if (startDate && logDate < startDate) continue;
+      if (endDate && logDate > endDate) continue;
+      
+      const dailyLogs = await AsyncStorage.getItem(key);
+      if (dailyLogs) {
+        const logs = JSON.parse(dailyLogs);
+        allLogs.push(...logs);
+      }
+    }
+    
+    // Sort by timestamp
+    return allLogs.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+  } catch (error) {
+    console.warn('Failed to retrieve daily logs:', error);
+    return [];
+  }
+};
+
+// Get logs in different formats
+export const getLogsAsText = async (startDate = null, endDate = null) => {
+  const logs = await getDailyLogs(startDate, endDate);
+  return logs.map(log => {
+    const timestamp = new Date(log.timestamp).toLocaleString();
+    return `[${timestamp}] ${log.level} - ${log.message}${
+      log.data ? `\nData: ${JSON.stringify(log.data, null, 2)}` : ''
+    }${
+      log.context && Object.keys(log.context).length > 0 
+        ? `\nContext: ${JSON.stringify(log.context, null, 2)}` 
+        : ''
+    }`;
+  }).join('\n\n---\n\n');
+};
+
+export const getLogsAsCSV = async (startDate = null, endDate = null) => {
+  const logs = await getDailyLogs(startDate, endDate);
+  const headers = ['timestamp', 'level', 'message', 'data', 'context', 'environment', 'platform'];
+  
+  const csvContent = [
+    headers.join(','),
+    ...logs.map(log => [
+      `"${log.timestamp}"`,
+      `"${log.level}"`,
+      `"${log.message.replace(/"/g, '""')}"`,
+      `"${JSON.stringify(log.data || {}).replace(/"/g, '""')}"`,
+      `"${JSON.stringify(log.context || {}).replace(/"/g, '""')}"`,
+      `"${log.environment}"`,
+      `"${log.platform}"`
+    ].join(','))
+  ].join('\n');
+  
+  return csvContent;
+};
+
+export const getLogsAsJSON = async (startDate = null, endDate = null) => {
+  const logs = await getDailyLogs(startDate, endDate);
+  return JSON.stringify({
+    metadata: {
+      exportDate: new Date().toISOString(),
+      startDate: startDate?.toISOString() || null,
+      endDate: endDate?.toISOString() || null,
+      totalLogs: logs.length
+    },
+    logs
+  }, null, 2);
+};
+
+// Export logs to file (in web environment)
+export const exportLogsToFile = async (format = 'json', startDate = null, endDate = null) => {
+  let content;
+  let filename;
+  let mimeType;
+  
+  const today = new Date().toISOString().split('T')[0];
+  
+  switch (format.toLowerCase()) {
+    case 'text':
+    case 'txt':
+      content = await getLogsAsText(startDate, endDate);
+      filename = `app_logs_${today}.txt`;
+      mimeType = 'text/plain';
+      break;
+    case 'csv':
+      content = await getLogsAsCSV(startDate, endDate);
+      filename = `app_logs_${today}.csv`;
+      mimeType = 'text/csv';
+      break;
+    case 'json':
+    default:
+      content = await getLogsAsJSON(startDate, endDate);
+      filename = `app_logs_${today}.json`;
+      mimeType = 'application/json';
+      break;
+  }
+  
+  // In React Native, we'd need to use FileSystem or Share API
+  // For now, return the content for the app to handle
+  return {
+    content,
+    filename,
+    mimeType
+  };
+};
+
 // Clear stored logs
 export const clearStoredLogs = async () => {
   try {
     await AsyncStorage.removeItem(LOG_STORAGE_KEY);
+    
+    // Also clear all daily logs
+    const keys = await AsyncStorage.getAllKeys();
+    const dailyLogKeys = keys.filter(key => key.startsWith('@app_logs_daily_'));
+    
+    for (const key of dailyLogKeys) {
+      await AsyncStorage.removeItem(key);
+    }
   } catch (error) {
     console.warn('Failed to clear stored logs:', error);
   }

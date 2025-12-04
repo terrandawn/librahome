@@ -12,8 +12,10 @@ export const useAuthStore = create((set) => ({
   setAuth: (auth) => {
     if (auth) {
       SecureStore.setItemAsync(authKey, JSON.stringify(auth));
+      logger.auth('auth_state_set', auth.userId, { provider: auth.provider });
     } else {
       SecureStore.deleteItemAsync(authKey);
+      logger.auth('auth_state_cleared', null, {});
     }
     set({ auth });
   },

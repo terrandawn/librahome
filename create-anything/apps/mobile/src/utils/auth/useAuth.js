@@ -36,9 +36,10 @@ export const useAuth = () => {
   }, [open]);
 
   const signOut = useCallback(() => {
+    logger.auth('sign_out', auth?.userId, { provider: auth?.provider });
     setAuth(null);
     close();
-  }, [close]);
+  }, [close, auth]);
 
   return {
     isReady,

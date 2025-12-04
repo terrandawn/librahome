@@ -1,5 +1,6 @@
 import * as SecureStore from 'expo-secure-store';
 import { fetch as expoFetch } from 'expo/fetch';
+import { actionLogger } from '../utils/actionLogger';
 
 const originalFetch = fetch;
 const authKey = `${process.env.EXPO_PUBLIC_PROJECT_GROUP_ID}-jwt`;
@@ -83,10 +84,35 @@ const fetchToWeb = async function fetchWithHeaders(...args: Params) {
     finalHeaders.set('authorization', `Bearer ${auth.jwt}`);
   }
 
-  return expoFetch(finalInput, {
-    ...init,
-    headers: finalHeaders,
-  });
+  const startTime = Date.now();
+  const method = init?.method || 'GET';
+  
+  try {
+    const response = await expoFetch(finalInput, {
+      ...init,
+      headers: finalHeaders,
+    });
+    
+    const endTime = Date.now();
+    const duration = endTime - startTime;
+    
+    // Log successful API call
+    actionLogger.logApiSuccess(method, url, startTime, endTime, {
+      status: response.status,
+      statusText: response.statusText,
+      url: finalInput
+    });
+    
+    return response;
+  } catch (error) {
+    const endTime = Date.now();
+    const duration = endTime - startTime;
+    
+    // Log failed API call
+    actionLogger.logApiError(method, url, startTime, endTime, error);
+    
+    throw error;
+  }
 };
 
 export default fetchToWeb;

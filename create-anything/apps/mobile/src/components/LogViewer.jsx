@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import { logger, getStoredLogs, clearStoredLogs } from '../utils/logger';
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Alert, Share } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { logger, getStoredLogs, clearStoredLogs, exportLogsToFile } from '../utils/logger';
 
 const LogViewer = ({ visible, onClose }) => {
   const [logs, setLogs] = useState([]);
   const [filter, setFilter] = useState('all'); // all, info, warn, error, debug
+  const [exportFormat, setExportFormat] = useState('json');
 
   useEffect(() => {
     if (visible) {
@@ -45,6 +47,23 @@ const LogViewer = ({ visible, onClose }) => {
         }
       ]
     );
+  };
+
+  const exportLogs = async () => {
+    try {
+      const exportData = await exportLogsToFile(exportFormat);
+      
+      if (exportData.content) {
+        await Share.share({
+          message: exportData.content,
+          title: `App Logs (${exportFormat.toUpperCase()})`,
+        });
+        logger.info(`Logs exported in ${exportFormat} format`);
+      }
+    } catch (error) {
+      logger.error('Failed to export logs', error);
+      Alert.alert('Error', 'Failed to export logs');
+    }
   };
 
   const getLogColor = (level) => {
@@ -93,7 +112,15 @@ const LogViewer = ({ visible, onClose }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Application Logs</Text>
+        <View style={styles.titleRow}>
+          <Text style={styles.title}>Application Logs</Text>
+          <TouchableOpacity
+            style={styles.closeButton}
+            onPress={onClose}
+          >
+            <Ionicons name="close" size={20} color="#fff" />
+          </TouchableOpacity>
+        </View>
         <View style={styles.headerButtons}>
           <TouchableOpacity
             style={[styles.filterButton, filter === 'all' && styles.activeFilter]}
@@ -114,16 +141,51 @@ const LogViewer = ({ visible, onClose }) => {
             <Text style={styles.filterButtonText}>Warnings</Text>
           </TouchableOpacity>
           <TouchableOpacity
+            style={[styles.filterButton, filter === 'info' && styles.activeFilter]}
+            onPress={() => setFilter('info')}
+          >
+            <Text style={styles.filterButtonText}>Info</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.filterButton, filter === 'debug' && styles.activeFilter]}
+            onPress={() => setFilter('debug')}
+          >
+            <Text style={styles.filterButtonText}>Debug</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.actionRow}>
+          <View style={styles.exportFormatButtons}>
+            {['json', 'text', 'csv'].map(format => (
+              <TouchableOpacity
+                key={format}
+                style={[
+                  styles.formatButton,
+                  exportFormat === format && styles.formatButtonActive
+                ]}
+                onPress={() => setExportFormat(format)}
+              >
+                <Text style={[
+                  styles.formatButtonText,
+                  exportFormat === format && styles.formatButtonTextActive
+                ]}>
+                  {format.toUpperCase()}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+          <TouchableOpacity
+            style={styles.exportButton}
+            onPress={exportLogs}
+          >
+            <Ionicons name="download" size={16} color="#fff" />
+            <Text style={styles.exportButtonText}>Export</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
             style={styles.clearButton}
             onPress={clearLogs}
           >
+            <Ionicons name="trash" size={16} color="#fff" />
             <Text style={styles.clearButtonText}>Clear</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.closeButton}
-            onPress={onClose}
-          >
-            <Text style={styles.closeButtonText}>✕</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -156,16 +218,25 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#4a5568',
   },
+  titleRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
   title: {
     color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 12,
+  },
+  closeButton: {
+    padding: 4,
   },
   headerButtons: {
     flexDirection: 'row',
     alignItems: 'center',
     flexWrap: 'wrap',
+    marginBottom: 12,
   },
   filterButton: {
     backgroundColor: '#4a5568',
@@ -183,31 +254,59 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '500',
   },
+  actionRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  exportFormatButtons: {
+    flexDirection: 'row',
+    gap: 4,
+  },
+  formatButton: {
+    backgroundColor: '#4a5568',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
+  },
+  formatButtonActive: {
+    backgroundColor: '#38a169',
+  },
+  formatButtonText: {
+    color: '#fff',
+    fontSize: 10,
+    fontWeight: '500',
+  },
+  formatButtonTextActive: {
+    color: '#fff',
+  },
+  exportButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#38a169',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 16,
+    gap: 4,
+  },
+  exportButtonText: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: '500',
+  },
   clearButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: '#e53e3e',
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 16,
-    marginRight: 8,
-    marginLeft: 'auto',
+    gap: 4,
   },
   clearButtonText: {
     color: '#fff',
     fontSize: 12,
     fontWeight: '500',
-  },
-  closeButton: {
-    backgroundColor: '#718096',
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  closeButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
   },
   logContainer: {
     flex: 1,

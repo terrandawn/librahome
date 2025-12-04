@@ -1,12 +1,37 @@
 import * as React from 'react';
 import { UploadClient } from '@uploadcare/upload-client'
+import { actionLogger } from './actionLogger';
 const client = new UploadClient({ publicKey: process.env.EXPO_PUBLIC_UPLOADCARE_PUBLIC_KEY });
 
 function useUpload() {
   const [loading, setLoading] = React.useState(false);
   const upload = React.useCallback(async (input) => {
+    const startTime = Date.now();
+    let fileType = 'unknown';
+    let fileName = 'unknown';
+    let fileSize = 0;
+    
     try {
       setLoading(true);
+      
+      // Extract file information for logging
+      if ("reactNativeAsset" in input && input.reactNativeAsset) {
+        const asset = input.reactNativeAsset;
+        fileName = asset.name || asset.uri?.split('/').pop() || 'unknown';
+        fileSize = asset.size || 0;
+        fileType = asset.mimeType || 'unknown';
+        actionLogger.logUploadStart(fileType, fileName, fileSize);
+      } else if ("url" in input) {
+        fileType = 'url';
+        fileName = input.url;
+        actionLogger.logUploadStart(fileType, fileName, 0);
+      } else if ("base64" in input) {
+        fileType = 'base64';
+        fileSize = input.base64.length;
+        fileName = 'base64_data';
+        actionLogger.logUploadStart(fileType, fileName, fileSize);
+      }
+      
       let response;
 
       if ("reactNativeAsset" in input && input.reactNativeAsset) {
@@ -67,8 +92,13 @@ function useUpload() {
         throw new Error("Upload failed");
       }
       const data = await response.json();
+      const duration = Date.now() - startTime;
+      actionLogger.logUploadSuccess(fileType, fileName, data.url, duration);
       return { url: data.url, mimeType: data.mimeType || null };
     } catch (uploadError) {
+      const duration = Date.now() - startTime;
+      actionLogger.logUploadError(fileType, fileName, uploadError);
+      
       if (uploadError instanceof Error) {
         return { error: uploadError.message };
       }

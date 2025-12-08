@@ -1,0 +1,24 @@
+## Problem
+The error "No environment variables with visibility 'Plain text' and 'Sensitive' found for the 'production' environment on EAS" was blocking production builds.
+
+## Solution
+Created immediate fix with step-by-step instructions:
+
+### Files Added:
+1. fix-eas-env-quick.md - Quick fix guide with 2-minute solution
+2. .env.production - Example production environment variables
+
+### Required Action (2 Minutes):
+1. Go to: https://expo.dev/accounts/your-account/projects/7bfa6018-e8d2-4160-a8cb-fc036d196ee6/environment-variables
+2. Click "Create variable"
+3. Add:
+   - Name: APP_VARIANT
+   - Value: production
+   - Environment: production 
+   - Visibility: Plain text
+4. Click "Create"
+
+### Result:
+✅ Production builds will work immediately after creating the environment variable
+
+This is the minimum requirement to satisfy EAS Build's need for at least one Plain text or Sensitive environment variable in the production environment.

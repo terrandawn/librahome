@@ -20,6 +20,9 @@ expo-env.d.ts
 # Metro
 .metro-health-check*
 
+# EAS creds
+credentials.json
+
 # debug
 npm-debug.*
 yarn-debug.*

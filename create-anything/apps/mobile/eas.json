@@ -10,6 +10,9 @@
 			"environment": "development",
 			"ios": {
 				"withoutCredentials": true
+			},
+			"android": {
+				"credentialsSource": "remote"
 			}
 		},
 		"preview": {
@@ -17,12 +20,18 @@
 			"environment": "preview",
 			"ios": {
 				"withoutCredentials": true
+			},
+			"android": {
+				"credentialsSource": "remote"
 			}
 		},
 		"production": {
 			"autoIncrement": true,
 			"environment": "production",
 			"ios": {
+				"credentialsSource": "remote"
+			},
+			"android": {
 				"credentialsSource": "remote"
 			}
 		}

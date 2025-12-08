@@ -1,0 +1,19 @@
+## Problem
+The error "Unknown option 'fileMapCacheDirectory'" was occurring because this option has been deprecated and removed in Metro 0.82+.
+
+## Solution
+Removed the deprecated fileMapCacheDirectory configuration option.
+
+### Change Made:
+- Removed: config.fileMapCacheDirectory = cacheDir;
+- Kept: config.cacheStores configuration for proper caching
+
+### Why This Works:
+- Metro 0.82+ handles file map cache automatically
+- The cacheStores configuration provides proper caching functionality
+- Removing deprecated options eliminates warning messages
+
+### Additional Note:
+The credentials error mentioned in the log (Distribution Certificate is not validated for non-interactive builds) is a separate iOS build issue that needs to be addressed separately through proper certificate provisioning.
+
+This fix resolves the Metro configuration warning while maintaining proper cache functionality.

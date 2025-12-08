@@ -158,15 +158,15 @@ export default function DebugScreen() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>System Information</Text>
           <View style={styles.infoContainer}>
-            <View style={styles.infoRow}>
+            <View style={[styles.infoRow, { borderBottomWidth: 0 }]}>
               <Text style={styles.infoLabel}>Platform:</Text>
               <Text style={styles.infoValue}>{Platform.OS}</Text>
             </View>
-            <View style={styles.infoRow}>
+            <View style={[styles.infoRow, { borderBottomWidth: 0 }]}>
               <Text style={styles.infoLabel}>Version:</Text>
               <Text style={styles.infoValue}>{Platform.Version}</Text>
             </View>
-            <View style={styles.infoRow}>
+            <View style={[styles.infoRow, { borderBottomWidth: 0 }]}>
               <Text style={styles.infoLabel}>Environment:</Text>
               <Text style={styles.infoValue}>{__DEV__ ? 'Development' : 'Production'}</Text>
             </View>
@@ -275,9 +275,6 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderBottomWidth: 1,
     borderBottomColor: '#4a5568',
-  },
-  infoRow:lastChild: {
-    borderBottomWidth: 0,
   },
   infoLabel: {
     color: '#a0aec0',

@@ -94,10 +94,7 @@ config.cacheStores = () => [
   }),
 ];
 config.resetCache = false;
-config.serializer = {
-  ...config.serializer,
-  fileMapCacheDirectory: cacheDir,
-};
+config.fileMapCacheDirectory = cacheDir;
 config.reporter = {
   ...config.reporter,
   update: (event) => {

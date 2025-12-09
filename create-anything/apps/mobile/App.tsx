@@ -1,3 +1,5 @@
+import 'whatwg-fetch';
+import 'react-native-get-random-values';
 import { usePathname, useRouter } from 'expo-router';
 import { App } from 'expo-router/build/qualified-entry';
 import React, { memo, useEffect, useState } from 'react';

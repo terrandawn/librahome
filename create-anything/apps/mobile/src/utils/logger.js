@@ -375,8 +375,5 @@ export const logger = {
   },
 };
 
-// Export additional utilities
-export { getStoredLogs, clearStoredLogs };
-
 // Default export
 export default logger;

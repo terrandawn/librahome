@@ -43,11 +43,20 @@ jobs:
       working-directory: create-anything/apps/mobile
       run: npm ci
       
+    - name: Generate Keystore
+      working-directory: create-anything/apps/mobile
+      run: |
+        mkdir -p keystore
+        keytool -genkey -v -keystore keystore/temparlias.keystore -alias temparlias -keyalg RSA -keysize 2048 -validity 10000 -storepass temppassword123 -keypass temppassword123 -dname "CN=Test, OU=Test, O=Test, L=Test, S=Test, C=US"
+      
     - name: Build Android APK
       working-directory: create-anything/apps/mobile
       run: eas build --platform android --profile github-actions --non-interactive
       env:
         EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        ANDROID_KEYSTORE_PASSWORD: temppassword123
+        ANDROID_KEY_ALIAS: temparlias
+        ANDROID_KEY_PASSWORD: temppassword123
         
     - name: Upload APK
       uses: actions/upload-artifact@v4

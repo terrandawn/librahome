@@ -94,6 +94,7 @@ config.cacheStores = () => [
   }),
 ];
 config.resetCache = false;
+config.fileMapCacheDirectory = path.join(cacheDir, 'metro-file-map');
 config.reporter = {
   ...config.reporter,
   update: (event) => {

@@ -35,12 +35,6 @@
 			},
 			"android": {
 				"credentialsSource": "local",
-				"keystore": {
-					"alias": "temparlias",
-					"keyAlias": "temparlias",
-					"keyPassword": "temppassword123",
-					"keystorePassword": "temppassword123"
-				},
 				"node": "18.20.4",
 				"yarn": "1.22.22"
 			}

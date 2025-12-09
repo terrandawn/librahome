@@ -22,16 +22,6 @@
 				"withoutCredentials": true
 			},
 			"android": {
-				"credentialsSource": "remote"
-			}
-		},
-		"preview-fresh": {
-			"distribution": "internal",
-			"environment": "preview",
-			"ios": {
-				"withoutCredentials": true
-			},
-			"android": {
 				"credentialsSource": "remote",
 				"buildCache": {
 					"disabled": true

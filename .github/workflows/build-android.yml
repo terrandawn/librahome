@@ -45,7 +45,7 @@ jobs:
       
     - name: Build Android APK
       working-directory: create-anything/apps/mobile
-      run: eas build --platform android --profile preview --non-interactive
+      run: eas build --platform android --profile github-actions --non-interactive
       env:
         EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
         

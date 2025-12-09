@@ -86,18 +86,25 @@ config.resolver.resolveRequest = (context, moduleName, platform) => {
   }
 };
 
+// Completely remove cache directory and all caching for EAS builds
 const cacheDir = path.join(__dirname, 'caches');
+// Intentionally not creating cache directory to prevent any cache usage
 
-// Ensure cache directory exists
-fs.mkdirSync(cacheDir, { recursive: true });
-
-// Disable cache stores entirely for EAS builds
+// Force disable all caching mechanisms
 config.cacheStores = () => [];
 config.resetCache = false;
-// Completely disable Metro caching for EAS builds to avoid all cache-related issues
+// Aggressively disable all Metro caching and optimization
 config.fileMapCacheDirectory = null;
 config.resetCache = true;
 config.maxWorkers = 1;
+config.serializer = {
+  ...config.serializer,
+  getModulesRunBeforeMainModule: () => [],
+};
+config.transformer = {
+  ...config.transformer,
+  minifierConfig: {},
+};
 config.reporter = {
   ...config.reporter,
   update: (event) => {

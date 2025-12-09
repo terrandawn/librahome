@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; // Updated for EAS build
+import React, { useState, useEffect } from 'react'; // Final update for EAS build v2
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';

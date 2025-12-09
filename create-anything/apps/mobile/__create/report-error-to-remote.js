@@ -1,5 +1,3 @@
-const { serializeError } = require('serialize-error');
-
 const reportErrorToRemote = async ({ error }) => {
   if (
     !process.env.EXPO_PUBLIC_LOGS_ENDPOINT ||
@@ -12,6 +10,20 @@ const reportErrorToRemote = async ({ error }) => {
     );
     return { success: false };
   }
+  
+  let serializeError;
+  try {
+    const serializeErrorModule = await import('serialize-error');
+    serializeError = serializeErrorModule.serializeError;
+  } catch (importError) {
+    // Fallback if serialize-error is not available
+    serializeError = (err) => ({
+      message: err.message,
+      name: err.name,
+      stack: err.stack
+    });
+  }
+  
   try {
     await fetch(process.env.EXPO_PUBLIC_LOGS_ENDPOINT, {
       method: 'POST',

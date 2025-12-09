@@ -28,8 +28,9 @@
 			}
 		},
 		"github-actions": {
+			"developmentClient": true,
 			"distribution": "internal",
-			"environment": "production",
+			"environment": "development",
 			"ios": {
 				"withoutCredentials": true
 			},

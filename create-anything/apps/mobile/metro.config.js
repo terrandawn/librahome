@@ -91,14 +91,13 @@ const cacheDir = path.join(__dirname, 'caches');
 // Ensure cache directory exists
 fs.mkdirSync(cacheDir, { recursive: true });
 
-config.cacheStores = () => [
-  new FileStore({
-    root: path.join(cacheDir, '.metro-cache'),
-  }),
-];
+// Disable cache stores entirely for EAS builds
+config.cacheStores = () => [];
 config.resetCache = false;
-// Disable file map cache to avoid ENOENT errors in EAS build
+// Completely disable Metro caching for EAS builds to avoid all cache-related issues
 config.fileMapCacheDirectory = null;
+config.resetCache = true;
+config.maxWorkers = 1;
 config.reporter = {
   ...config.reporter,
   update: (event) => {

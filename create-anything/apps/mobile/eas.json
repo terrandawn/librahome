@@ -22,10 +22,22 @@
 				"withoutCredentials": true
 			},
 			"android": {
+				"credentialsSource": "remote"
+			}
+		},
+		"preview-fresh": {
+			"distribution": "internal",
+			"environment": "preview",
+			"ios": {
+				"withoutCredentials": true
+			},
+			"android": {
 				"credentialsSource": "remote",
 				"buildCache": {
 					"disabled": true
-				}
+				},
+				"node": "18.20.4",
+				"yarn": "1.22.22"
 			}
 		},
 		"production": {

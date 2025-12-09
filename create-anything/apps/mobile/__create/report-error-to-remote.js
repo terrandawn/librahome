@@ -1,6 +1,4 @@
-import { serializeError } from 'serialize-error';
-
-export const reportErrorToRemote = async ({ error }) => {
+const reportErrorToRemote = async ({ error }) => {
   if (
     !process.env.EXPO_PUBLIC_LOGS_ENDPOINT ||
     !process.env.EXPO_PUBLIC_PROJECT_GROUP_ID ||
@@ -12,6 +10,20 @@ export const reportErrorToRemote = async ({ error }) => {
     );
     return { success: false };
   }
+  
+  let serializeError;
+  try {
+    const serializeErrorModule = await import('serialize-error');
+    serializeError = serializeErrorModule.serializeError;
+  } catch (importError) {
+    // Fallback if serialize-error is not available
+    serializeError = (err) => ({
+      message: err.message,
+      name: err.name,
+      stack: err.stack
+    });
+  }
+  
   try {
     await fetch(process.env.EXPO_PUBLIC_LOGS_ENDPOINT, {
       method: 'POST',
@@ -35,3 +47,5 @@ export const reportErrorToRemote = async ({ error }) => {
   }
   return { success: true };
 };
+
+module.exports = { reportErrorToRemote };

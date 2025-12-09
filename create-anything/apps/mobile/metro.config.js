@@ -92,9 +92,6 @@ const cacheDir = path.join(__dirname, 'caches');
 
 // Force disable all caching mechanisms
 config.cacheStores = () => [];
-config.resetCache = false;
-// Aggressively disable all Metro caching and optimization
-config.fileMapCacheDirectory = null;
 config.resetCache = true;
 config.maxWorkers = 1;
 config.serializer = {

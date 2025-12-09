@@ -23,24 +23,18 @@
 			},
 			"android": {
 				"credentialsSource": "remote",
-				"buildCache": {
-					"disabled": true
-				},
 				"node": "18.20.4",
 				"yarn": "1.22.22"
 			}
 		},
 		"github-actions": {
 			"distribution": "internal",
-			"environment": "production",
+			"environment": "development",
 			"ios": {
 				"withoutCredentials": true
 			},
 			"android": {
-				"credentialsSource": "remote",
-				"buildCache": {
-					"disabled": true
-				},
+				"credentialsSource": "local",
 				"node": "18.20.4",
 				"yarn": "1.22.22"
 			}

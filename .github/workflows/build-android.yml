@@ -43,6 +43,14 @@ jobs:
       working-directory: create-anything/apps/mobile
       run: npm ci
       
+    - name: Generate Keystore and Credentials
+      working-directory: create-anything/apps/mobile
+      run: |
+        mkdir -p keystore
+        keytool -genkey -v -keystore keystore/default.keystore -alias default -keyalg RSA -keysize 2048 -validity 10000 -storepass temppassword -keypass temppassword -dname "CN=Test, OU=Test, O=Test, L=Test, S=Test, C=US"
+        
+        echo '{"android":{"keystore":{"keystorePath":"./keystore/default.keystore","keystorePassword":"temppassword","keyAlias":"default","keyPassword":"temppassword"}}}' > credentials.json
+      
     - name: Build Android APK
       working-directory: create-anything/apps/mobile
       run: eas build --platform android --profile github-actions --non-interactive

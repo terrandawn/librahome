@@ -48,18 +48,8 @@ jobs:
       run: |
         mkdir -p keystore
         keytool -genkey -v -keystore keystore/default.keystore -alias default -keyalg RSA -keysize 2048 -validity 10000 -storepass temppassword -keypass temppassword -dname "CN=Test, OU=Test, O=Test, L=Test, S=Test, C=US"
-        cat > credentials.json << EOF
-{
-  "android": {
-    "keystore": {
-      "keystorePath": "./keystore/default.keystore",
-      "keystorePassword": "temppassword",
-      "keyAlias": "default",
-      "keyPassword": "temppassword"
-    }
-  }
-}
-EOF
+        
+        echo '{"android":{"keystore":{"keystorePath":"./keystore/default.keystore","keystorePassword":"temppassword","keyAlias":"default","keyPassword":"temppassword"}}}' > credentials.json
       
     - name: Build Android APK
       working-directory: create-anything/apps/mobile

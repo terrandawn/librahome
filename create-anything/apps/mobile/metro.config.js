@@ -88,13 +88,17 @@ config.resolver.resolveRequest = (context, moduleName, platform) => {
 
 const cacheDir = path.join(__dirname, 'caches');
 
+// Ensure cache directory exists
+fs.mkdirSync(cacheDir, { recursive: true });
+
 config.cacheStores = () => [
   new FileStore({
     root: path.join(cacheDir, '.metro-cache'),
   }),
 ];
 config.resetCache = false;
-config.fileMapCacheDirectory = path.join(cacheDir, 'metro-file-map');
+// Disable file map cache to avoid ENOENT errors in EAS build
+config.fileMapCacheDirectory = null;
 config.reporter = {
   ...config.reporter,
   update: (event) => {

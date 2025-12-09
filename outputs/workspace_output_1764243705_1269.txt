@@ -1,0 +1,8 @@
+create-anything/apps/web/plugins/restart.ts:82:					console.log('File changed, scheduling restart:', file);
+create-anything/apps/web/plugins/restart.ts:91:					console.log('File changed, scheduling reload:', file);
+create-anything/apps/web/__create/route-builder.ts:38:      console.error(`Error reading file ${file}:`, error);
+create-anything/apps/web/__create/route-builder.ts:70:      console.error('Error finding route files:', error);
+create-anything/apps/web/__create/route-builder.ts:120:                console.warn(`Unsupported method: ${method}`);
+create-anything/apps/web/__create/route-builder.ts:125:          console.error(`Error registering route ${routeFile} for method ${method}:`, error);
+create-anything/apps/web/__create/route-builder.ts:129:      console.error(`Error importing route file ${routeFile}:`, error);
+create-anything/apps/web/__create/route-builder.ts:145:        console.error('Error reloading routes:', err);

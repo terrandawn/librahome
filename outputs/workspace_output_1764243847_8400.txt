@@ -1,0 +1,50 @@
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  TextInput,
+  Alert,
+  ActivityIndicator,
+  Image,
+} from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
+import { useRouter } from "expo-router";
+import { useState } from "react";
+import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
+import {
+  ArrowLeft,
+  Camera,
+  Edit3,
+  Search,
+  BookOpen,
+  X,
+} from "lucide-react-native";
+import { useAuth } from "@/utils/auth/useAuth";
+
+export default function AddBookScreen() {
+  const insets = useSafeAreaInsets();
+  const router = useRouter();
+  const { auth } = useAuth();
+  const queryClient = useQueryClient();
+
+  const [activeTab, setActiveTab] = useState("search"); // Default to search now
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedBook, setSelectedBook] = useState(null);
+  const [formData, setFormData] = useState({
+    title: "",
+    author: "",
+    isbn: "",
+    publisher: "",
+    publication_year: "",
+    genre: "",
+    page_count: "",
+    description: "",
+    format: "",
+    condition: "new",
+    physical_location: "",
+    status: "unread",
+    cover_image_url: "",
+  });
+

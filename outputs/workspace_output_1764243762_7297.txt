@@ -1,0 +1,10 @@
+total 4
+drwxr-xr-x 8 root root 164 Nov 27 11:02 .
+drwxr-xr-x 5 root root 169 Nov 27 11:02 ..
+drwxr-xr-x 3 root root  30 Nov 27 11:02 __create
+drwxr-xr-x 4 root root  43 Nov 27 11:02 auth
+drwxr-xr-x 5 root root  81 Nov 27 11:02 books
+drwxr-xr-x 2 root root  22 Nov 27 11:02 reading-progress
+drwxr-xr-x 2 root root  30 Nov 27 11:02 reading-sessions
+drwxr-xr-x 2 root root  70 Nov 27 11:02 utils
+-rw-r--r-- 1 root root 140 Nov 27 11:02 vitest.config.ts

@@ -1,0 +1,25 @@
+
+> dev
+> react-router dev
+
+Port 4000 is in use, trying another one...
+  ➜  Local:   http://localhost:4001/
+  ➜  Network: http://172.20.0.9:4001/
+11:46:19 AM [vite] (client) Pre-transform error: Failed to resolve import "~/utils/logger" from "src/app/root.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /workspace/create-anything/apps/web/src/app/root.tsx:41:20
+  26 |  import "./global.css";
+  27 |  import fetch from "@/__create/fetch";
+  28 |  import { logger } from "~/utils/logger";
+     |                          ^
+  29 |  import { SessionProvider } from "@auth/create/react";
+  30 |  import { useNavigate } from "react-router";
+11:46:19 AM [vite] (client) Pre-transform error: Failed to resolve import "~/utils/logger" from "src/app/root.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /workspace/create-anything/apps/web/src/app/root.tsx:41:20
+  26 |  import "./global.css";
+  27 |  import fetch from "@/__create/fetch";
+  28 |  import { logger } from "~/utils/logger";
+     |                          ^
+  29 |  import { SessionProvider } from "@auth/create/react";
+  30 |  import { useNavigate } from "react-router";

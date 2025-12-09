@@ -1,0 +1,5 @@
+create-anything/apps/mobile/polyfills/shared/expo-image.tsx
+create-anything/apps/mobile/src/utils/auth/useAuthModal.jsx
+create-anything/apps/mobile/src/utils/auth/AuthWebView.jsx
+create-anything/apps/mobile/src/utils/logger.js
+create-anything/apps/mobile/src/__create/fetch.ts

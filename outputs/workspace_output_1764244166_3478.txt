@@ -1,0 +1,4 @@
+root        1506  0.0  0.0      0     0 pts/0    Z+   11:47   0:00 [npm run dev] <defunct>
+root        1728  0.0  0.0      0     0 pts/0    Z+   11:47   0:00 [npm run dev] <defunct>
+root        2007  0.0  0.0   4352  1028 pts/0    S+   11:49   0:00 bash -lc  cd create-anything/apps/web && npm run dev 2>&1 | head -20 & echo $! > server.pid sleep 10 
+root        2008  0.0  0.0 1090676 53484 pts/0   Sl+  11:49   0:00 npm run dev

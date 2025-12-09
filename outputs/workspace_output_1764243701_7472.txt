@@ -1,0 +1,105 @@
+=== WEB APP ROOT COMPONENT ===
+import {
+  Links,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  useAsyncError,
+  useLocation,
+  useRouteError,
+} from 'react-router';
+
+import { useButton } from '@react-aria/button';
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+  type FC,
+  Component,
+} from 'react';
+import './global.css';
+
+import fetch from '@/__create/fetch';
+// @ts-ignore
+import { SessionProvider } from '@auth/create/react';
+import { useNavigate } from 'react-router';
+import { serializeError } from 'serialize-error';
+import { Toaster } from 'sonner';
+// @ts-ignore
+import { LoadFonts } from 'virtual:load-fonts.jsx';
+import { HotReloadIndicator } from '../__create/HotReload';
+import { useSandboxStore } from '../__create/hmr-sandbox-store';
+import type { Route } from './+types/root';
+import { useDevServerHeartbeat } from '../__create/useDevServerHeartbeat';
+
+export const links = () => [];
+
+if (globalThis.window && globalThis.window !== undefined) {
+  globalThis.window.fetch = fetch...
+
+==================================================
+
+=== MOBILE APP ROOT COMPONENT ===
+import { usePathname, useRouter } from 'expo-router';
+import { App } from 'expo-router/build/qualified-entry';
+import React, { memo, useEffect, useState } from 'react';
+import { ErrorBoundaryWrapper } from './__create/SharedErrorBoundary';
+import './src/__create/polyfills';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Toaster } from 'sonner-native';
+import { AlertModal } from './polyfills/web/alerts.web';
+import './global.css';
+
+const GlobalErrorReporter = () => {
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    const errorHandler = (event: ErrorEvent) => {
+      if (typeof event.preventDefault === 'function') event.preventDefault();
+      console.error(event.error);
+    };
+    // unhandled promises happen all the time, so we just log them
+    const unhandledRejectionHandler = (event: PromiseRejectionEvent) => {
+      if (typeof event.preventDefault === 'function') event.preventDefault();
+      console.error('Unhandled ...
+
+==================================================
+
+=== WEB AUTH UTILITY ===
+import { useCallback } from 'react';
+import { signIn, signOut } from "@auth/create/react";
+
+function useAuth() {
+  const callbackUrl = typeof window !== 'undefined' 
+    ? new URLSearchParams(window.location.search).get('callbackUrl')
+    : null;
+
+  const signInWithCredentials = useCallback((options) => {
+    return signIn("credentials-signin", {
+      ...options,
+      callbackUrl: callbackUrl ?? options.callbackUrl
+    });
+  }, [callbackUrl])
+
+  const signUpWithCredentials = useCallback((optio...
+
+==================================================
+
+=== MOBILE AUTH UTILITY ===
+import { router } from 'expo-router';
+import * as SecureStore from 'expo-secure-store';
+import { useCallback, useEffect, useMemo } from 'react';
+import { create } from 'zustand';
+import { Modal, View } from 'react-native';
+import { useAuthModal, useAuthStore, authKey } from './store';
+
+
+/**
+ * This hook provides authentication functionality.
+ * It may be easier to use the `useAuthModal` or `useRequireAuth` hooks
+ * instead as those will also handle showing authentication to the user
+ * directly....

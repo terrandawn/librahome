@@ -1,0 +1,16 @@
+  const handleSave = async () => {
+    // No mandatory fields - save whatever the user has entered
+    const bookData = {
+      ...formData,
+      publication_year: formData.publication_year
+        ? parseInt(formData.publication_year) || null
+        : null,
+      page_count: formData.page_count
+        ? parseInt(formData.page_count) || null
+        : null,
+      // Ensure we have at least something to identify the book
+      title: formData.title.trim() || "Unknown Title",
+    };
+
+    createBookMutation.mutate(bookData);
+  };

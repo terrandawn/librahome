@@ -1,0 +1,42 @@
+{
+	"cli": {
+		"version": ">= 15.0.15",
+		"appVersionSource": "remote"
+	},
+	"build": {
+		"development": {
+			"developmentClient": true,
+			"distribution": "internal",
+			"environment": "development",
+			"ios": {
+				"withoutCredentials": true
+			},
+			"android": {
+				"credentialsSource": "remote"
+			}
+		},
+		"preview": {
+			"distribution": "internal",
+			"environment": "preview",
+			"ios": {
+				"withoutCredentials": true
+			},
+			"android": {
+				"credentialsSource": "remote"
+			}
+		},
+		"production": {
+			"autoIncrement": true,
+			"environment": "production",
+			"ios": {
+				"credentialsSource": "remote"
+			},
+			"android": {
+				"credentialsSource": "remote"
+			}
+		}
+	},
+	"submit": {
+		"production": {}
+	}
+}

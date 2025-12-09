@@ -1,0 +1,5 @@
+55:    refetch: searchBooks,
+61:      const response = await fetch(
+62:        `/api/books/search?q=${encodeURIComponent(searchQuery.trim())}`,
+71:    mutationFn: async (bookData) => {
+72:      const response = await fetch("/api/books", {

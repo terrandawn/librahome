@@ -1,0 +1,10 @@
+-rw-r--r-- 1 root root 235 Nov 27 11:47 server.log
+
+> dev
+> react-router dev
+
+Port 4000 is in use, trying another one...
+Port 4001 is in use, trying another one...
+Port 4002 is in use, trying another one...
+  ➜  Local:   http://localhost:4003/
+  ➜  Network: http://172.20.0.9:4003/

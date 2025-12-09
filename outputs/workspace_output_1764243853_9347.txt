@@ -1,0 +1,21 @@
+      queryClient.invalidateQueries(["book-stats"]);
+
+      Alert.alert("Success!", "Book added to your library successfully.", [
+        { text: "OK", onPress: () => router.back() },
+      ]);
+    },
+    onError: (error) => {
+      Alert.alert(
+        "Error",
+        error.message || "Failed to add book. Please try again.",
+      );
+    },
+  });
+
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      searchBooks();
+    }
+  };
+
+  const handleSelectBook = (book) => {

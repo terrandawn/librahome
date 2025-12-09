@@ -1,0 +1,21 @@
+  const createBookMutation = useMutation({
+    mutationFn: async (bookData) => {
+      const response = await fetch("/api/books", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-user-id": auth?.userId || "",
+        },
+        body: JSON.stringify(bookData),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || "Failed to add book");
+      }
+
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["books"]);
+      queryClient.invalidateQueries(["book-stats"]);

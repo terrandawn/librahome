@@ -1,0 +1,10 @@
+create-anything/apps/mobile/src/app/add-book.jsx:        `/api/books/search?q=${encodeURIComponent(searchQuery.trim())}`,
+create-anything/apps/mobile/src/app/add-book.jsx:      const response = await fetch("/api/books", {
+create-anything/apps/mobile/src/app/book/[id].jsx:      const response = await fetch(`/api/books/${id}`, {
+create-anything/apps/mobile/src/app/book/[id].jsx:      const response = await fetch(`/api/books/${id}`, {
+create-anything/apps/mobile/src/app/book/[id].jsx:      const response = await fetch(`/api/books/${id}`, {
+create-anything/apps/mobile/src/app/(tabs)/index.jsx:      const response = await fetch("/api/books/stats", {
+create-anything/apps/mobile/src/app/(tabs)/library.jsx:      const response = await fetch(`/api/books?${params}`, {
+create-anything/apps/mobile/src/app/(tabs)/reading.jsx:      const response = await fetch("/api/reading-progress", {
+create-anything/apps/mobile/src/utils/auth/AuthWebView.jsx:const callbackUrl = '/api/auth/token';
+create-anything/apps/mobile/src/utils/auth/AuthWebView.jsx:        src={`${proxyURL}/account/${mode}?callbackUrl=/api/auth/expo-web-success`}

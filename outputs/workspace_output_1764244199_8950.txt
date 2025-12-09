@@ -1,0 +1,59 @@
+🧪 Testing mock database...
+➕ Inserting book...
+🔍 Mock DB Query: insert into books (
+        user_id, title, author, isbn, publisher, publication_year,
+        genre...
+➕ Inserting book with 16 parameters
+✅ Book added: Test Book (ID: book_1)
+📚 Total books in database: 1
+✅ Insert result: [
+  {
+    id: 'book_1',
+    user_id: 'test-user-123',
+    title: 'Test Book',
+    author: 'Test Author',
+    isbn: null,
+    publisher: null,
+    publication_year: null,
+    genre: null,
+    cover_image_url: null,
+    page_count: null,
+    description: null,
+    language: 'en',
+    format: null,
+    condition: null,
+    physical_location: null,
+    date_acquired: null,
+    status: 'unread',
+    created_at: '2025-11-27T11:49:59.553Z',
+    updated_at: '2025-11-27T11:49:59.553Z'
+  }
+]
+📚 Querying books...
+🔍 Mock DB Query: select * from books where user_id = ,...
+📚 Selecting books with 1 parameters
+✅ Returning 1 books
+✅ Query result: [
+  {
+    id: 'book_1',
+    user_id: 'test-user-123',
+    title: 'Test Book',
+    author: 'Test Author',
+    isbn: null,
+    publisher: null,
+    publication_year: null,
+    genre: null,
+    cover_image_url: null,
+    page_count: null,
+    description: null,
+    language: 'en',
+    format: null,
+    condition: null,
+    physical_location: null,
+    date_acquired: null,
+    status: 'unread',
+    created_at: '2025-11-27T11:49:59.553Z',
+    updated_at: '2025-11-27T11:49:59.553Z'
+  }
+]
+🎉 Mock database is working correctly!

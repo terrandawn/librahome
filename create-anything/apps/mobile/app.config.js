@@ -1,4 +1,6 @@
-export default {
+const { getDefaultConfig } = require('expo/metro-config');
+
+module.exports = {
   expo: {
     "name": "LibraHome",
     "slug": "librahome",
@@ -42,8 +44,7 @@ export default {
         "android.permission.MODIFY_AUDIO_SETTINGS"
       ],
       compileSdkVersion: 33,
-      targetSdkVersion: 33,
-      versionCode: 1
+      targetSdkVersion: 33
     },
     web: {
       favicon: "./assets/images/favicon.png"

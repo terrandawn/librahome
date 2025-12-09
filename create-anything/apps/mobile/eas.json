@@ -22,7 +22,10 @@
 				"withoutCredentials": true
 			},
 			"android": {
-				"credentialsSource": "remote"
+				"credentialsSource": "remote",
+				"buildCache": {
+					"disabled": true
+				}
 			}
 		},
 		"production": {
